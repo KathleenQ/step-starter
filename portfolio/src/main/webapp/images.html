@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <title>Kathleen's Photo Gallery</title>
+    <link rel="stylesheet" href="style.css">
+    <style>
+        h1 {text-align: center; font-family: Georgia, serif;}
+        .center {text-align: center;}
+        div.gallery {border: 1px solid #ccc;}
+        div.gallery:hover {border: 1px solid #777;}
+        div.gallery img {width: 100%; height: auto;}
+        div.desc {padding: 15px; text-align: center;}
+        * {box-sizing: border-box;}
+        .responsive {
+            padding: 0 6px;
+            float: left;
+            width: 49.99999%;
+        }
+        @media only screen and (max-width: 700px) {
+            .responsive {
+            width: 49.99999%;
+            margin: 6px 0;
+            }
+        }
+        @media only screen and (max-width: 500px) {
+            .responsive {width: 100%;}
+        }
+        .clearfix:after {content: ""; display: table; clear: both;}
+    </style>
+  </head>
+  <body>
+    <div id="content">
+      <h1 style="background-color:LightGoldenRodYellow; color:DarkGoldenRod">Kathleen's Photo Gallery</h1>
+      <div class="responsive">
+        <div class="gallery">
+            <a target="_blank" href="images/selfie.jpg">
+            <img src="images/selfie.jpg" alt="Selfie" width="600" height="400">
+            </a>
+            <div class="desc">Selfie when travelling in Gold Coast</div>
+        </div>
+      </div>
+      <div class="responsive">
+        <div class="gallery">
+            <a target="_blank" href="images/cbr.jpg">
+            <img src="images/cbr.jpg" alt="Canberra" width="600" height="400">
+            </a>
+            <div class="desc">Noodle Festival in Canberra</div>
+        </div>
+      </div>
+      <div class="responsive">
+        <div class="gallery">
+            <a target="_blank" href="images/pet-tortoise.jpg">
+            <img src="images/pet-tortoise.jpg" alt="Pets" width="600" height="400">
+            </a>
+            <div class="desc">My pet tortoises in China</div>
+        </div>
+      </div>
+      <div class="responsive">
+        <div class="gallery">
+            <a target="_blank" href="images/google.jpg">
+            <img src="images/google.jpg" alt="MTV Google" width="600" height="400">
+            </a>
+            <div class="desc">Photo in Mountain View Googleplex</div>
+        </div>
+      </div>
+      <div class="responsive">
+        <div class="gallery">
+            <a target="_blank" href="images/room.jpg">
+            <img src="images/room.jpg" alt="Residence" width="600" height="400">
+            </a>
+            <div class="desc">Good view from the belcony</div>
+        </div>
+      </div>
+
+      <button onclick="goBack()" >Back to Main</button>
+      <script>
+        function goBack() {
+            window.history.back();
+        }
+      </script>
+    </div>
+  </body>
+</html>

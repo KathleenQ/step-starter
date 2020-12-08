@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="UTF-8">
-    <title>My Portfolio</title>
+    <title>Kathleen's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
     <style>
@@ -12,12 +12,12 @@
         .center {text-align: center;}
         .rainbow{
            animation-name: rainbow;
-           animation-duration: 5.8s;
+           animation-duration: 6s;
            animation-iteration-count: infinite;
            animation-timing-function: linear;}
         .rainbow_quick{
            animation-name: rainbow;
-           animation-duration: 1.6s;
+           animation-duration: 1.8s;
            animation-iteration-count: infinite;
            animation-timing-function: linear;}
         @keyframes rainbow{
@@ -33,40 +33,20 @@
             90%{color: DarkMagenta;}
             100%{color: IndianRed;} 
         }
-        div.gallery {border: 1px solid #ccc;}
-        div.gallery:hover {border: 1px solid #777;}
-        div.gallery img {width: 100%; height: auto;}
-        div.desc {padding: 15px; text-align: center;}
-        * {box-sizing: border-box;}
-        .responsive {
-            padding: 0 6px;
-            float: left;
-            width: 49.99999%;
-        }
-        @media only screen and (max-width: 700px) {
-            .responsive {
-            width: 49.99999%;
-            margin: 6px 0;
-            }
-        }
-        @media only screen and (max-width: 500px) {
-            .responsive {width: 100%;}
-        }
-        .clearfix:after {content: ""; display: table; clear: both;}
     </style>
   </head>
   
   <body>
     <div id="content">
-      <h1 class="rainbow" font size="+3">Kathleen's Portfolio</h1>
-      <h4 style="background-color:Lavender;">Hello! I am Kathleen Qian~ Welcome to my portfolio.</h4>
+      <h1 class="rainbow">Kathleen's Portfolio</h1>
+      <h4 style="background-color:Lavender">Hello! I am Kathleen Qian~ Welcome to my portfolio.</h4>
       <div class="center">
         <button onclick="addRandomGreeting()" class="center">My Keywords</button>
         <div id="greeting-container" class="rainbow_quick"></div>
       </div>
       <p>I come from the Australian National University (located in Canberra). I'm in double degree of Advanced Computing (R&D) and Actuarial Studies.</p>
       <p>I love listening to music, trying delicious food around the world, reading historical or cultural books and drawing Chinese paintings in my free time. I am eager for Lego, Ring Fit Adventure and Avalon board game recently.</p>
-      <h3 style="background-color:LavenderBlush; color:FireBrick" >Profile Links</h3>
+      <h3 style="background-color:LavenderBlush; color:FireBrick">Profile Links</h3>
       <ul>
         <li><a href="https://www.linkedin.com/in/siying-kathleen-q-b5410916b/">My LinkedIn</a></li>
         <li><a href="https://github.com/KathleenQ">My GitHub</a></li>
@@ -87,49 +67,8 @@
         <li><i>The Chronicles of Narnia</i> &#129409;</li>
         <li>Almost all Disney live-action movies...&#128151;</li>
       </ul>
-
       <h3 style="background-color:LightGoldenRodYellow; color:DarkGoldenRod">My Photos</h3>
-      <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="images/selfie.jpg">
-            <img src="images/selfie.jpg" alt="Selfie" width="600" height="400">
-            </a>
-            <div class="desc">Selfie when travelling in Gold Coast</div>
-        </div>
-      </div>
-      <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="images/cbr.jpg">
-            <img src="images/cbr.jpg" alt="Canberra" width="600" height="400">
-            </a>
-            <div class="desc">Noodle Festival in Canberra</div>
-        </div>
-      </div>
-      <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="images/pet-tortoise.jpg">
-            <img src="images/pet-tortoise.jpg" alt="Pets" width="600" height="400">
-            </a>
-            <div class="desc">My pet tortoises in China</div>
-        </div>
-      </div>
-      <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="images/google.jpg">
-            <img src="images/google.jpg" alt="MTV Google" width="600" height="400">
-            </a>
-            <div class="desc">Photo in Mountain View Googleplex</div>
-        </div>
-      </div>
-      <div class="responsive">
-        <div class="gallery">
-            <a target="_blank" href="images/room.jpg">
-            <img src="images/room.jpg" alt="Residence" width="600" height="400">
-            </a>
-            <div class="desc">Good view from the belcony</div>
-        </div>
-      </div>
-      
+      <p class="rainbow_quick">Click <a href="images.html">HERE</a> to see more of my photos~</p>
     </div>
   </body>
 </html>
