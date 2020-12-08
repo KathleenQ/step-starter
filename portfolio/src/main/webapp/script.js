@@ -17,7 +17,7 @@
  */
 function addRandomGreeting() {
   const greetings =
-      ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies', 'Canberra'];
+      ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
 
   // Pick a random greeting.
   const greeting = greetings[Math.floor(Math.random() * greetings.length)];
