@@ -30,7 +30,7 @@ function addRandomKeyword() {
 /**
  * Fetches data from the server and adds it to the DOM.
  */
-async function getData() {
+async function fetchData() {
   const response = await fetch('/data');
   const data = await response.text();
   document.getElementById('data-container').innerText = data;
