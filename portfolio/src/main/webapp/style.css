@@ -14,21 +14,21 @@ h4 {text-align: center; font-family: Verdana, serif;}
 
 .center {text-align: center;}
 
-.rainbow{
+.rainbow {
   animation-name: rainbow;
   animation-duration: 6s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-.rainbow_quick{
+.rainbow_quick {
   animation-name: rainbow;
   animation-duration: 1.8s;
   animation-iteration-count: infinite;
   animation-timing-function: linear;
 }
-@keyframes rainbow{
-  0%{color: IndianRed;}	
-  10%{color: Tomato;}	
+@keyframes rainbow {
+  0%{color: IndianRed;}
+  10%{color: Tomato;}
   20%{color: LightSalmon;}
   30%{color: Gold;}
   40%{color: MediumAquaMarine;}
@@ -37,7 +37,7 @@ h4 {text-align: center; font-family: Verdana, serif;}
   70%{color: DarkSlateBlue;}
   80%{color: Indigo;}
   90%{color: DarkMagenta;}
-  100%{color: IndianRed;} 
+  100%{color: IndianRed;}
 }
 
 div.gallery {border: 1px solid #ccc;}
