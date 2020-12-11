@@ -26,3 +26,12 @@ function addRandomKeyword() {
   const keywordContainer = document.getElementById('keyword-container');
   keywordContainer.innerText = keyword;
 }
+
+/**
+ * Fetches comments from the server and adds it to the DOM.
+ */
+async function getComments() {
+  const response = await fetch('/data');
+  const comments = await response.text();
+  document.getElementById('comments-container').innerText = comments;
+}
