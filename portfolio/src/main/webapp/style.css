@@ -7,3 +7,55 @@
 #greeting-container {
   margin-top: 20px;
 }
+
+h1 {text-align: center; font-family: Georgia, serif;}
+h3 {font-family: Georgia, serif;}
+h4 {text-align: center; font-family: Verdana, serif;}
+
+.center {text-align: center;}
+
+.rainbow{
+  animation-name: rainbow;
+  animation-duration: 6s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+.rainbow_quick{
+  animation-name: rainbow;
+  animation-duration: 1.8s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+@keyframes rainbow{
+  0%{color: IndianRed;}	
+  10%{color: Tomato;}	
+  20%{color: LightSalmon;}
+  30%{color: Gold;}
+  40%{color: MediumAquaMarine;}
+  50%{color: MediumSeaGreen;}
+  60%{color: CornflowerBlue;}
+  70%{color: DarkSlateBlue;}
+  80%{color: Indigo;}
+  90%{color: DarkMagenta;}
+  100%{color: IndianRed;} 
+}
+
+div.gallery {border: 1px solid #ccc;}
+div.gallery:hover {border: 1px solid #777;}
+div.gallery img {width: 100%; height: auto;}
+div.desc {padding: 15px; text-align: center;}
+* {box-sizing: border-box;}
+.responsive {
+  padding: 0 6px;
+  float: left;
+  width: 49.99999%;
+}
+@media only screen and (max-width: 700px) {
+  .responsive {width: 49.99999%; margin: 6px 0;}
+}
+@media only screen and (max-width: 500px) {
+  .responsive {width: 100%;}
+}
+.clearfix:after {content: ""; display: table; clear: both;}
+
+.img {width: 600px; height:400px;}

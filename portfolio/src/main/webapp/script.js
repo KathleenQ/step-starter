@@ -13,16 +13,16 @@
 // limitations under the License.
 
 /**
- * Adds a random greeting to the page.
+ * Adds a random keyword of me to the page.
  */
-function addRandomGreeting() {
-  const greetings =
-      ['Hello world!', '¡Hola Mundo!', '你好，世界！', 'Bonjour le monde!'];
+function addRandomKeyword() {
+  const keywords =
+      ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
 
-  // Pick a random greeting.
-  const greeting = greetings[Math.floor(Math.random() * greetings.length)];
+  // Pick a random keyword.
+  const keyword = keywords[Math.floor(Math.random() * keywords.length)];
 
   // Add it to the page.
-  const greetingContainer = document.getElementById('greeting-container');
-  greetingContainer.innerText = greeting;
+  const keywordContainer = document.getElementById('keyword-container');
+  keywordContainer.innerText = keyword;
 }
