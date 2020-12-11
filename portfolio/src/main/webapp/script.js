@@ -17,7 +17,7 @@
  */
 function addRandomKeyword() {
   const keywords =
-      ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
+    ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
 
   // Pick a random keyword.
   const keyword = keywords[Math.floor(Math.random() * keywords.length)];
