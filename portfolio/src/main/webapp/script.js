@@ -28,10 +28,10 @@ function addRandomKeyword() {
 }
 
 /**
- * Fetches comments from the server and adds it to the DOM.
+ * Fetches data from the server and adds it to the DOM.
  */
-async function getComments() {
+async function getData() {
   const response = await fetch('/data');
-  const comments = await response.text();
-  document.getElementById('comments-container').innerText = comments;
+  const data = await response.text();
+  document.getElementById('data-container').innerText = data;
 }
