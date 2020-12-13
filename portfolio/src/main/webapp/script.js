@@ -17,7 +17,7 @@
  */
 function addRandomKeyword() {
   const keywords =
-      ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
+    ['Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial', 'Travel', 'Disney Movies'];
 
   // Pick a random keyword.
   const keyword = keywords[Math.floor(Math.random() * keywords.length)];
@@ -25,4 +25,13 @@ function addRandomKeyword() {
   // Add it to the page.
   const keywordContainer = document.getElementById('keyword-container');
   keywordContainer.innerText = keyword;
+}
+
+/**
+ * Fetches data from the server and adds it to the DOM.
+ */
+async function fetchData() {
+  const response = await fetch('/data');
+  const data = await response.text();
+  document.getElementById('data-container').innerText = data;
 }
