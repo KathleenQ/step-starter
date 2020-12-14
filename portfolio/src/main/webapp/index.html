@@ -12,7 +12,7 @@
       <h4 style="background-color:Lavender">Hello! 
         I am Kathleen Qian. Welcome to my portfolio!</h4>
       <div class="center">
-        <button onclick="addRandomKeyword()" class="center">My Keywords</button>
+        <button onclick="addRandomKeyword()">My Keywords</button>
         <div id="keyword-container" class="rainbow_quick"></div>
       </div>
       <p>I come from the Australian National University (located in Canberra). 
@@ -47,10 +47,20 @@
       </ul>
       <h3 style="background-color:LightGoldenRodYellow; color:DarkGoldenRod">My Photos</h3>
       <p class="rainbow_quick">Click <a href="images.html">HERE</a> to see more of my photos! &#127902;</p>
-      <h3 style="background-color:WhiteSmoke; color:DimGrey">Messages</h3>
-      <button onclick="fetchData()">Show Messages</button>
-      <div id="data-container"></div>
-      <br>
+      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comment Box</h3>
+      <form action="/data" method=POST>
+        <p>Please enter your comment here:</p>
+        <textarea name="comments-input" style="width:350px;height:70px;background-color:snow;">
+        </textarea>
+        <br/>
+        <input type="submit" value="Submit" />
+      </form>
+      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comments Collection</h3>
+      <div class="center">
+        <button onclick="fetchData()" class="center">Show all comments</button>
+        <div id="data-container"></div>
+      </div>
+      <br/>
     </div>
   </body>
 </html>
