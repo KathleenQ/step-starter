@@ -44,9 +44,9 @@ public class DataServlet extends HttpServlet {
 
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("contents", comment);
-    commentsStorage.add(comment);
-
     DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+    datastore.put(commentEntity);
+
     response.setContentType("text/html;");
     response.getWriter().println("Thank you for your comments!");
     response.sendRedirect("/index.html");
