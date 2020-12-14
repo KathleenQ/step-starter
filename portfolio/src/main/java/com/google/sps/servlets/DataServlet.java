@@ -14,7 +14,10 @@
 
 package com.google.sps.servlets;
 
+import com.google.gson.Gson;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -23,10 +26,21 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content and handles data. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  private List<String> commentsStorage = new ArrayList<>();
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String json = new Gson().toJson(commentsStorage);
+    response.setContentType("text/html");
+    response.getWriter().println(json);
+  }
+
+  @Override
+  public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
+    String comment = request.getParameter("comments-input");
+    commentsStorage.add(comment);
     response.setContentType("text/html;");
-    response.getWriter().println("<h1>Hello Kathleen!</h1>");
+    response.getWriter().println("Thank you for your comments!");
+    response.sendRedirect("/index.html");
   }
 }
