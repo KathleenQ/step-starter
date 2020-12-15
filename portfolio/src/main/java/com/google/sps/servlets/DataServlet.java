@@ -31,18 +31,22 @@ import javax.servlet.http.HttpServletResponse;
 /** Servlet that returns some example content and handles data. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
+  DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
+  private int max_comments_num = 5;
+
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     PreparedQuery results = datastore.prepare(query);
-
     List<String> commentsStorage = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      String contents = (String) entity.getProperty("contents");
-      commentsStorage.add(contents);
+      if (commentsStorage.size() < max_comments_num) {
+        String contents = (String) entity.getProperty("contents");
+        commentsStorage.add(contents);
+      } else {
+        break;
+      }
     }
-
     String json = new Gson().toJson(commentsStorage);
     response.setContentType("text/html");
     response.getWriter().println(json);
@@ -51,12 +55,9 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comments-input");
-
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("contents", comment);
-    DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
     datastore.put(commentEntity);
-
     response.setContentType("text/html;");
     response.getWriter().println("Thank you for your comments!");
     response.sendRedirect("/index.html");
