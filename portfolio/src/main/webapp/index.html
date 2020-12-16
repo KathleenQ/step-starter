@@ -47,11 +47,14 @@
       </ul>
       <h3 style="background-color:LightGoldenRodYellow; color:DarkGoldenRod">My Photos</h3>
       <p class="rainbow_quick">Click <a href="images.html">HERE</a> to see more of my photos! &#127902;</p>
-      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comment Box</h3>
+      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comment Section</h3>
       <form action="/data" method=POST>
         <p>Please enter your comment here:</p>
-        <textarea name="comments-input" id="textbox"></textarea>
+        <textarea name="comments-input" id="textbox" onchange="refreshComment(this.value)"></textarea>
         <br/>
+        <p>Please insert the maximum number of comments that you want to see:</p>
+        <input type="text" name="max-num-comments" onchange="refreshCommentsNum(this.value)">
+        <br/><br/>
         <input type="submit" value="Submit" />
       </form>
       <h3 style="background-color:WhiteSmoke; color:DimGrey">Comments Collection</h3>

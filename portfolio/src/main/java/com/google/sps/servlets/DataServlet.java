@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  private int max_comments_num = 5;
+  int max_comments_num = 3;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -55,11 +55,32 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comments-input");
+    max_comments_num = getCommentsMaxNum(request);
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("contents", comment);
     datastore.put(commentEntity);
     response.setContentType("text/html;");
     response.getWriter().println("Thank you for your comments!");
-    response.sendRedirect("/index.html");
+  }
+
+  /**
+   * Returns the maximum number of comments entered by the viewer, or the default number of comments
+   * (3) if the choice was invalid.
+   */
+  private int getCommentsMaxNum(HttpServletRequest request) {
+    String maxCommentsNumString = request.getParameter("max-num-comments");
+    int defaultNum = 3;
+    int maxCommentsNum;
+    try {
+      maxCommentsNum = Integer.parseInt(maxCommentsNumString);
+    } catch (NumberFormatException e) {
+      System.err.println("Could not convert to int: " + maxCommentsNumString);
+      return defaultNum;
+    }
+    if (maxCommentsNum < 1) {
+      System.err.println("Player choice is out of range: " + maxCommentsNumString);
+      return defaultNum;
+    }
+    return maxCommentsNum;
   }
 }

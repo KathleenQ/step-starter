@@ -37,3 +37,17 @@ async function fetchData() {
   const data = await response.text();
   document.getElementById('data-container').innerText = data;
 }
+
+/**
+ * Refreshes the input comment.
+ */
+function refreshComment(val) {
+  alert('The comment has changed to: ' + val);
+}
+
+/**
+ * Refreshes the input maximum comments' number.
+ */
+function refreshCommentsNum(val) {
+  alert('The number of maximum shown comments has changed to: ' + val);
+}
