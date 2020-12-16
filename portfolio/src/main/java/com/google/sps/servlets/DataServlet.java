@@ -78,7 +78,7 @@ public class DataServlet extends HttpServlet {
       return defaultNum;
     }
     if (maxCommentsNum < 1) {
-      System.err.println("Player choice is out of range: " + maxCommentsNumString);
+      System.err.println("Inserted number is out of range: " + maxCommentsNumString);
       return defaultNum;
     }
     return maxCommentsNum;
