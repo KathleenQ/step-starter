@@ -50,19 +50,16 @@
       <h3 style="background-color:WhiteSmoke; color:DimGrey">Comment Section</h3>
       <form action="/data" method=POST>
         <p>Please enter your comment here:</p>
-        <textarea name="comments-input" id="textbox" onchange="refreshComment(this.value)"></textarea>
-        <br/>
+        <textarea name="comments-input" id="textbox"></textarea><br/>
         <p>Please insert the maximum number of comments that you want to see:</p>
-        <input type="text" name="max-num-comments" onchange="refreshCommentsNum(this.value)">
-        <br/><br/>
+        <input type="number" name="max-comments-num" min="1"><br/><br/>
         <input type="submit" value="Submit" />
       </form>
       <h3 style="background-color:WhiteSmoke; color:DimGrey">Comments Collection</h3>
       <div class="center">
         <button onclick="fetchData()" class="center">Show all comments</button>
         <div id="data-container"></div>
-      </div>
-      <br/>
+      </div><br/>
     </div>
   </body>
 </html>

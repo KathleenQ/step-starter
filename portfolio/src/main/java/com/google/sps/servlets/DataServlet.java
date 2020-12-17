@@ -28,11 +28,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that returns some example content and handles data. */
+/** Servlet that handles input comments data and returns the contents. */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  int max_comments_num = 3;
+  int maxCommentsNum = 3;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
@@ -40,7 +40,7 @@ public class DataServlet extends HttpServlet {
     PreparedQuery results = datastore.prepare(query);
     List<String> commentsStorage = new ArrayList<>();
     for (Entity entity : results.asIterable()) {
-      if (commentsStorage.size() < max_comments_num) {
+      if (commentsStorage.size() < maxCommentsNum) {
         String contents = (String) entity.getProperty("contents");
         commentsStorage.add(contents);
       } else {
@@ -55,32 +55,15 @@ public class DataServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comments-input");
-    max_comments_num = getCommentsMaxNum(request);
+    String maxCommentsNumString = request.getParameter("max-comments-num");
+    if (maxCommentsNumString != null) {
+      maxCommentsNum = Integer.parseInt(maxCommentsNumString);
+    }
     Entity commentEntity = new Entity("Comment");
     commentEntity.setProperty("contents", comment);
+    commentEntity.setProperty("bound", maxCommentsNum);
     datastore.put(commentEntity);
     response.setContentType("text/html;");
     response.getWriter().println("Thank you for your comments!");
-  }
-
-  /**
-   * Returns the maximum number of comments entered by the viewer, or the default number of comments
-   * (3) if the choice was invalid.
-   */
-  private int getCommentsMaxNum(HttpServletRequest request) {
-    String maxCommentsNumString = request.getParameter("max-num-comments");
-    int defaultNum = 3;
-    int maxCommentsNum;
-    try {
-      maxCommentsNum = Integer.parseInt(maxCommentsNumString);
-    } catch (NumberFormatException e) {
-      System.err.println("Could not convert to int: " + maxCommentsNumString);
-      return defaultNum;
-    }
-    if (maxCommentsNum < 1) {
-      System.err.println("Inserted number is out of range: " + maxCommentsNumString);
-      return defaultNum;
-    }
-    return maxCommentsNum;
   }
 }
