@@ -12,9 +12,7 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-/**
- * Adds a random keyword of me to the page.
- */
+/** Adds a random keyword of me to the page. */
 function addRandomKeyword() {
   const keywords = [
     'Delicious Food', 'Pet Tortoises', '你好，谷歌！', 'Computer & Actuarial',
@@ -29,11 +27,16 @@ function addRandomKeyword() {
   keywordContainer.innerText = keyword;
 }
 
-/**
- * Fetches data from the server and adds it to the DOM.
- */
+/** Fetches data from the server and adds it to the DOM. */
 async function fetchData() {
   const response = await fetch('/data');
+  const data = await response.text();
+  document.getElementById('data-container').innerText = data;
+}
+
+/** Removes deleted data from the page. */
+async function deleteData() {
+  const response = await fetch('/delete-data');
   const data = await response.text();
   document.getElementById('data-container').innerText = data;
 }
