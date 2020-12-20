@@ -28,24 +28,35 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-/** Servlet that handles input comments data and returns the contents. */
+/**
+ * Servlet that handles input comments data and returns the contents with the limit number of
+ * maximum comments' number sent by viewers.
+ */
 @WebServlet("/data")
 public class DataServlet extends HttpServlet {
   DatastoreService datastore = DatastoreServiceFactory.getDatastoreService();
-  int maxCommentsNum = 3;
 
   @Override
   public void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
     Query query = new Query("Comment");
     PreparedQuery results = datastore.prepare(query);
     List<String> commentsStorage = new ArrayList<>();
+    int maxCommentsNum = 3;
     for (Entity entity : results.asIterable()) {
-      if (commentsStorage.size() < maxCommentsNum) {
-        String contents = (String) entity.getProperty("contents");
-        commentsStorage.add(contents);
-      } else {
-        break;
+      if (entity.getProperty("bound") != null) {
+        long boundLong = (long) entity.getProperty("bound");
+        int bound = Math.toIntExact(boundLong);
+        if (bound > maxCommentsNum) {
+          maxCommentsNum = bound;
+        }
       }
+      String contents = (String) entity.getProperty("contents");
+      if (contents != "") {
+        commentsStorage.add(contents);
+      }
+    }
+    if (commentsStorage.size() > maxCommentsNum) {
+      commentsStorage = commentsStorage.subList(0, maxCommentsNum);
     }
     String json = new Gson().toJson(commentsStorage);
     response.setContentType("text/html");
@@ -56,6 +67,7 @@ public class DataServlet extends HttpServlet {
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     String comment = request.getParameter("comments-input");
     String maxCommentsNumString = request.getParameter("max-comments-num");
+    int maxCommentsNum = 0;
     if (maxCommentsNumString != null) {
       maxCommentsNum = Integer.parseInt(maxCommentsNumString);
     }
