@@ -51,7 +51,7 @@ public class DataServlet extends HttpServlet {
 
     // Show the specific number of comments.
     String json =
-        new Gson().toJson(collectShownComments(commentsStorage, getMaxCommentNum(boundsStorage)));
+        new Gson().toJson(collectShownComments(commentsStorage, getMaxCommentsNum(boundsStorage)));
     response.setContentType("text/html");
     response.getWriter().println(json);
   }
@@ -89,7 +89,7 @@ public class DataServlet extends HttpServlet {
     }
   }
 
-  /** Returns the output comments' collection with the maximum comments' number limitation. */
+  /** Returns the output comments' collection with the limitation of maximum comments' number. */
   public List<String> collectShownComments(List<String> commentsStorage, int maxCommentsNum) {
     if (commentsStorage.size() > maxCommentsNum) {
       commentsStorage = commentsStorage.subList(0, maxCommentsNum);
@@ -98,7 +98,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /** Calculates the final used maximum number of comments. */
-  public int getMaxCommentNum(List<Integer> boundsStorage) {
+  public int getMaxCommentsNum(List<Integer> boundsStorage) {
     // Sets 3 as default if nobody inserts a preferred maximum comments' number.
     int maxCommentsNum = 3;
     if (!boundsStorage.isEmpty()) {
