@@ -46,11 +46,12 @@ public class DataServlet extends HttpServlet {
     // Collect all comments and the preferred maximum numbers of comments.
     results.forEach(e -> {
       addCommentContents(e, commentsStorage);
-      getMaxCommentsNum(e, boundsStorage);
+      collectMaxCommentsNum(e, boundsStorage);
     });
 
     // Show the specific number of comments.
-    String json = new Gson().toJson(collectShownComments(commentsStorage, boundsStorage));
+    String json =
+        new Gson().toJson(collectShownComments(commentsStorage, getMaxCommentNum(boundsStorage)));
     response.setContentType("text/html");
     response.getWriter().println(json);
   }
@@ -72,7 +73,7 @@ public class DataServlet extends HttpServlet {
   }
 
   /** For a specific entity, add the inserted maximum comments' number to the collection. */
-  public void getMaxCommentsNum(Entity entity, List<Integer> boundsStorage) {
+  public void collectMaxCommentsNum(Entity entity, List<Integer> boundsStorage) {
     if (entity.getProperty("bound") != null) {
       long boundLong = (long) entity.getProperty("bound");
       int bound = Math.toIntExact(boundLong);
@@ -88,21 +89,21 @@ public class DataServlet extends HttpServlet {
     }
   }
 
-  /** Controls the output comments' collection with the maximum comments' number limitation. */
-  public List<String> collectShownComments(
-      List<String> commentsStorage, List<Integer> boundsStorage) {
-    // If nobody inserts a preferred maximum comments' number, the number is set to 3 as default.
-    int maxCommentsNum = 3;
-
-    // Otherwise, the number is the maximum value of all inserted numbers.
-    if (!boundsStorage.isEmpty()) {
-      maxCommentsNum = Collections.max(boundsStorage);
-    }
-
-    // The number of the shown comments is no larger than the maximum comments' number.
+  /** Returns the output comments' collection with the maximum comments' number limitation. */
+  public List<String> collectShownComments(List<String> commentsStorage, int maxCommentsNum) {
     if (commentsStorage.size() > maxCommentsNum) {
       commentsStorage = commentsStorage.subList(0, maxCommentsNum);
     }
     return commentsStorage;
+  }
+
+  /** Calculates the final used maximum number of comments. */
+  public int getMaxCommentNum(List<Integer> boundsStorage) {
+    // Sets 3 as default if nobody inserts a preferred maximum comments' number.
+    int maxCommentsNum = 3;
+    if (!boundsStorage.isEmpty()) {
+      maxCommentsNum = Collections.max(boundsStorage);
+    }
+    return maxCommentsNum;
   }
 }
