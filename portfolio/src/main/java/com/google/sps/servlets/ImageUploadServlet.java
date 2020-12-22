@@ -56,12 +56,12 @@ public class ImageUploadServlet extends HttpServlet {
     final Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
     final List<BlobKey> blobKeys = blobs.get("image");
 
-    // If a viewer submitted the form without selecting a image, no URL will be got.
+    // If a viewer submitted the form without selecting a image, no URL will be returned.
     if (blobKeys == null || blobKeys.isEmpty()) {
       return null;
     }
 
-    // The form only contains a single image input, so only the first index needs to be got.
+    // The form only contains a single image input, so only need to get the first index.
     final BlobKey blobKey = blobKeys.get(0);
 
     // Handle the no image submission case for live servers.

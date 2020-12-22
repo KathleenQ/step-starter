@@ -8,11 +8,23 @@
   margin-top: 20px;
 }
 
-h1 {text-align: center; font-family: Georgia, serif;}
-h3 {font-family: Georgia, serif;}
-h4 {text-align: center; font-family: Verdana, serif;}
+h1 {
+  text-align: center; 
+  font-family: Georgia, serif;
+}
 
-.center {text-align: center;}
+h3 {
+  font-family: Georgia, serif;
+}
+
+h4 {
+  text-align: center; 
+  font-family: Verdana, serif;
+}
+
+.center {
+  text-align: center;
+}
 
 .rainbow {
   animation-name: rainbow;
@@ -40,24 +52,49 @@ h4 {text-align: center; font-family: Verdana, serif;}
   100%{color: IndianRed;}
 }
 
-.gallery {border: 1px solid #ccc;}
-.gallery:hover {border: 1px solid #777;}
-.gallery img {width: 100%; height: auto;}
-.desc {padding: 15px; text-align: center;}
-* {box-sizing: border-box;}
+.gallery {
+  border: 1px solid #ccc;
+}
+.gallery:hover {
+  border: 1px solid #777;
+}
+.gallery img {
+  width: 100%; 
+  height: auto;
+}
+.desc {
+  padding: 15px; 
+  text-align: center;
+}
+* {
+  box-sizing: border-box;
+}
 .responsive {
   padding: 0 6px;
   float: left;
   width: 49.99999%;
 }
 @media only screen and (max-width: 700px) {
-  .responsive {width: 49.99999%; margin: 6px 0;}
+  .responsive {
+    width: 49.99999%; 
+    margin: 6px 0;
+  }
 }
 @media only screen and (max-width: 500px) {
-  .responsive {width: 100%;}
+  .responsive {
+    width: 100%;
+  }
 }
-.clearfix:after {content: ""; display: table; clear: both;}
-.img {width: 600px; height: 400px;}
+.clearfix:after {
+  content: ""; 
+  display: table; 
+  clear: both;
+}
+
+.img {
+  width: 600px; 
+  height: 400px;
+}
 
 #textbox {
   width: 350px;
@@ -66,4 +103,6 @@ h4 {text-align: center; font-family: Verdana, serif;}
   background-color: snow;
 }
 
-.hidden {display: none;}
+.hidden {
+  display: none;
+}
