@@ -39,7 +39,7 @@ public class ImageUploadServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
     // Get the URL of the image that the user uploaded to Blobstore.
-    String imageUrl = getUploadedImageUrl(request, "image");
+    final String imageUrl = getUploadedImageUrl(request, "image");
 
     // Output some HTML that shows the data the user entered.
     // A real codebase would probably store these in Datastore.
@@ -52,9 +52,9 @@ public class ImageUploadServlet extends HttpServlet {
 
   /** Returns a URL that points to the uploaded image, or null if the user didn't upload a image. */
   private String getUploadedImageUrl(HttpServletRequest request, String formInputElementName) {
-    BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
-    Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
-    List<BlobKey> blobKeys = blobs.get("image");
+    final BlobstoreService blobstoreService = BlobstoreServiceFactory.getBlobstoreService();
+    final Map<String, List<BlobKey>> blobs = blobstoreService.getUploads(request);
+    final List<BlobKey> blobKeys = blobs.get("image");
 
     // If a viewer submitted the form without selecting a image, no URL will be got.
     if (blobKeys == null || blobKeys.isEmpty()) {
@@ -62,18 +62,18 @@ public class ImageUploadServlet extends HttpServlet {
     }
 
     // The form only contains a single image input, so only the first index needs to be got.
-    BlobKey blobKey = blobKeys.get(0);
+    final BlobKey blobKey = blobKeys.get(0);
 
     // Handle the no image submission case for live servers.
-    BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
+    final BlobInfo blobInfo = new BlobInfoFactory().loadBlobInfo(blobKey);
     if (blobInfo.getSize() == 0) {
       blobstoreService.delete(blobKey);
       return null;
     }
 
     // Get the URL that points to the uploaded image, and thus get the corresponding image.
-    ImagesService imagesService = ImagesServiceFactory.getImagesService();
-    ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+    final ImagesService imagesService = ImagesServiceFactory.getImagesService();
+    final ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
     try {
       URL url = new URL(imagesService.getServingUrl(options));
       return url.getPath();
