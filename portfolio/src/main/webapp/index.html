@@ -6,7 +6,7 @@
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
   </head>
-  <body>
+  <body onload=fetchBlobstoreUrlAndShowForm()>
     <div id="content">
       <h1 class="rainbow">Kathleen's Portfolio</h1>
       <h4 style="background-color:Lavender">Hello! 
@@ -55,12 +55,18 @@
         <input type="number" name="max-comments-num" min="1" value="3"><br/><br/>
         <input type="submit" value="Submit" />
       </form>
-      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comments Collection</h3>
+      <h3 style="background-color:WhiteSmoke; color:DimGrey">Image Upload</h3>
+      <form id="my-form" class="hidden" method="POST" enctype="multipart/form-data">
+        <p>Please upload your image here if you want:</p>
+        <input type="file" name="image"><br/><br/>
+        <input type="submit" value="Submit" />
+      </form>
+      <h3 style="background-color:Lavender; color:Indigo">Comments Collection</h3>
       <div class="center">
         <button onclick="fetchData()" class="center">Show all comments</button>
         <div id="data-container"></div>
       </div>
-      <h3 style="background-color:WhiteSmoke; color:DimGrey">Comments Deletion</h3>
+      <h3 style="background-color:Lavender; color:Indigo">Comments Deletion</h3>
       <form action="/delete-data" method=POST>
         <p>Be careful&#10071;  Click the button to DELETE all comments:</p>
         <div class="center">
