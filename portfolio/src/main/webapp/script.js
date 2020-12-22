@@ -40,3 +40,16 @@ async function deleteData() {
   const data = await response.text();
   document.getElementById('data-container').innerText = data;
 }
+
+/** Gets the Blobstore upload URL from server using fetch and shows the form. */
+function fetchBlobstoreUrlAndShowForm() {
+  fetch('/blobstore-upload-url')
+      .then((response) => {
+        return response.text();
+      })
+      .then((imageUploadUrl) => {
+        const messageForm = document.getElementById('my-form');
+        messageForm.action = imageUploadUrl;
+        messageForm.classList.remove('hidden');
+      });
+}
