@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 /** Servlet that handles the upload image and show it to the viewer using Blobstore. */
-@WebServlet("/my-form-handler")
+@WebServlet("/image-upload-form-handler")
 public class ImageUploadServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {

@@ -48,7 +48,7 @@ function fetchBlobstoreUrlAndShowForm() {
         return response.text();
       })
       .then((imageUploadUrl) => {
-        const messageForm = document.getElementById('my-form');
+        const messageForm = document.getElementById('image-upload-form');
         messageForm.action = imageUploadUrl;
         messageForm.classList.remove('hidden');
       });
