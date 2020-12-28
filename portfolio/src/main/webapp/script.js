@@ -54,12 +54,21 @@ function fetchBlobstoreUrlAndShowForm() {
       });
 }
 
-/** Adds a map to the page. */
-let map;
-
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: {lat: -35.280, lng: 149.119},
-    zoom: 15,
-  });
-}
+/** Load the API key from json file and attach to html. */
+fetch('./config.json')
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      const script = document.createElement('script');
+      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + data.api_key + '&callback=initMap&libraries=&v=weekly';
+      script.defer = true;
+      window.initMap = function() {
+        // Create the basic map.
+        map = new google.maps.Map(document.getElementById('map'), {
+          center: {lat: -35.280, lng: 149.119},
+          zoom: 15,
+        });
+      };
+      document.head.appendChild(script);
+    });
