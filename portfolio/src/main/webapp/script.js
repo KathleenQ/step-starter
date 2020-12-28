@@ -61,7 +61,9 @@ fetch('./config.json')
     })
     .then(data => {
       const script = document.createElement('script');
-      script.src = 'https://maps.googleapis.com/maps/api/js?key=' + data.api_key + '&callback=initMap&libraries=&v=weekly';
+      script.src =
+          'https://maps.googleapis.com/maps/api/js?key=' + data.api_key +
+          '&callback=initMap&libraries=&v=weekly';
       script.defer = true;
       window.initMap = function() {
         // Create the basic map.
