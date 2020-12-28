@@ -62,4 +62,39 @@ function initMap() {
     center: {lat: -35.280, lng: 149.119},
     zoom: 15,
   });
+
+  // Add markers to the map.
+  const iconBase = 'https://maps.google.com/mapfiles/kml/paddle/';
+  const labMarker = new google.maps.Marker({
+    position: {lat: -35.27528029, lng: 149.12073692},
+    map: map,
+    title: 'Computer Lab',
+    icon: iconBase + 'purple-stars.png',
+  });
+
+  // Add info windows to the map.
+  const libraryInfoString = '<div id="content">' +
+      '<div id="siteNotice">' +
+      '</div>' +
+      '<h1 id="firstHeading" class="firstHeading">My Favorite Library</h1>' +
+      '<div id="bodyContent">' +
+      '<p>The <b>Chifley Library</b>, named after Joseph Benedict Chifley (Prime Minister of Australia from 1945-1949), ' +
+      'supports the teaching, learning and research activities of staff and students in the ' +
+      'ANU College of Arts & Social Sciences and the ANU College of Business and Economics.</p>' +
+      '<p>Attribution: ANU Chifley Library, <a href="https://anulib.anu.edu.au/using-library/branches/chifley-library">' +
+      'https://anulib.anu.edu.au/using-library/branches/chifley-library</a></p>' +
+      '</div>' +
+      '</div>';
+  const libraryInfoWindow = new google.maps.InfoWindow({
+    content: libraryInfoString,
+  });
+  const libraryMarker = new google.maps.Marker({
+    position: {lat: -35.27796177, lng: 149.12059922},
+    map: map,
+    title: 'Favorite Library',
+    icon: iconBase + 'pink-stars.png',
+  });
+  libraryMarker.addListener('click', () => {
+    libraryInfoWindow.open(map, libraryMarker);
+  });
 }
