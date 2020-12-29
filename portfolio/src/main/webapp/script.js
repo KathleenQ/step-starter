@@ -73,7 +73,7 @@ fetch('./config.json')
 
 /** Creates the basic map. */
 function createBasicMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
+  const map = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -35.280, lng: 149.119},
     zoom: 15,
   });
