@@ -54,7 +54,7 @@ function fetchBlobstoreUrlAndShowForm() {
       });
 }
 
-/** Load the API key from json file and attach to html. */
+/** Loads the API key from json file and attaches to html. */
 fetch('./config.json')
     .then(response => {
       return response.json();
@@ -66,11 +66,15 @@ fetch('./config.json')
           '&callback=initMap&libraries=&v=weekly';
       script.defer = true;
       window.initMap = function() {
-        // Create the basic map.
-        map = new google.maps.Map(document.getElementById('map'), {
-          center: {lat: -35.280, lng: 149.119},
-          zoom: 15,
-        });
+        createBasicMap();
       };
       document.head.appendChild(script);
     });
+
+/** Creates the basic map. */
+function createBasicMap() {
+  map = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -35.280, lng: 149.119},
+    zoom: 15,
+  });
+}
