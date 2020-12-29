@@ -53,3 +53,46 @@ function fetchBlobstoreUrlAndShowForm() {
         messageForm.classList.remove('hidden');
       });
 }
+
+/** Loads the API key from json file and attaches to html. */
+fetch('./config.json')
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      const script = document.createElement('script');
+      script.src =
+          'https://maps.googleapis.com/maps/api/js?key=' + data.api_key +
+          '&callback=initMap&libraries=&v=weekly';
+      script.defer = true;
+      window.initMap = function() {
+        createMap();
+      };
+      document.head.appendChild(script);
+    });
+
+/** Creates a map. */
+function createMap() {
+  const anuMap = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -35.280, lng: 149.119},
+    zoom: 15,
+  });
+  addMarkers(anuMap);
+}
+
+/** Adds personalised markers to the map. */
+function addMarkers(myMap) {
+  const iconBase = 'https://maps.google.com/mapfiles/kml/paddle/';
+  const labMarker = new google.maps.Marker({
+    position: {lat: -35.27528029, lng: 149.12073692},
+    map: myMap,
+    title: 'Computer Lab',
+    icon: iconBase + 'purple-stars.png',
+  });
+  const libraryMarker = new google.maps.Marker({
+    position: {lat: -35.27796177, lng: 149.12059922},
+    map: myMap,
+    title: 'Favorite Library',
+    icon: iconBase + 'pink-stars.png',
+  });
+}
