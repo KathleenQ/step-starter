@@ -66,14 +66,14 @@ fetch('./config.json')
           '&callback=initMap&libraries=&v=weekly';
       script.defer = true;
       window.initMap = function() {
-        createBasicMap();
+        createMap();
       };
       document.head.appendChild(script);
     });
 
-/** Creates the basic map. */
-function createBasicMap() {
-  const map = new google.maps.Map(document.getElementById('map'), {
+/** Creates a map. */
+function createMap() {
+  const anuMap = new google.maps.Map(document.getElementById('map'), {
     center: {lat: -35.280, lng: 149.119},
     zoom: 15,
   });
