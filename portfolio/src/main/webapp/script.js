@@ -53,3 +53,28 @@ function fetchBlobstoreUrlAndShowForm() {
         messageForm.classList.remove('hidden');
       });
 }
+
+/** Loads the API key from json file and attaches to html. */
+fetch('./config.json')
+    .then(response => {
+      return response.json();
+    })
+    .then(data => {
+      const script = document.createElement('script');
+      script.src =
+          'https://maps.googleapis.com/maps/api/js?key=' + data.api_key +
+          '&callback=initMap&libraries=&v=weekly';
+      script.defer = true;
+      window.initMap = function() {
+        createMap();
+      };
+      document.head.appendChild(script);
+    });
+
+/** Creates a map. */
+function createMap() {
+  const anuMap = new google.maps.Map(document.getElementById('map'), {
+    center: {lat: -35.280, lng: 149.119},
+    zoom: 15,
+  });
+}

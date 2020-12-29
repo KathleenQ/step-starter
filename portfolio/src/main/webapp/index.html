@@ -5,6 +5,7 @@
     <title>Kathleen's Portfolio</title>
     <link rel="stylesheet" href="style.css">
     <script src="script.js"></script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
   </head>
   <body onload=fetchBlobstoreUrlAndShowForm()>
     <div id="content">
@@ -47,6 +48,8 @@
       </ul>
       <h3 style="background-color:LightGoldenRodYellow; color:DarkGoldenRod">My Photos</h3>
       <p class="rainbow_quick">Click <a href="images.html">HERE</a> to see more of my photos! &#127902;</p>
+      <h3 style="background-color:Linen; color:SaddleBrown">My University</h3>
+      <div id="map" style="height: 500px"></div>
       <h3 style="background-color:WhiteSmoke; color:DimGrey">Comment Box</h3>
       <form action="/data" method=POST>
         <p>Please enter your comment here:</p>
