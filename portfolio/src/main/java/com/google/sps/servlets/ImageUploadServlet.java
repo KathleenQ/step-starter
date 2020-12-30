@@ -74,6 +74,10 @@ public class ImageUploadServlet extends HttpServlet {
     // Get the URL that points to the uploaded image, and thus get the corresponding image.
     final ImagesService imagesService = ImagesServiceFactory.getImagesService();
     final ServingUrlOptions options = ServingUrlOptions.Builder.withBlobKey(blobKey);
+
+    // To support running in Google Cloud Shell with AppEngine's dev server, we must use the
+    // relative path to the image, rather than the path returned by imagesService which contains a
+    // host.
     try {
       URL url = new URL(imagesService.getServingUrl(options));
       return url.getPath();
