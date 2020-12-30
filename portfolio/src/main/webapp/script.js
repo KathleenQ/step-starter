@@ -110,6 +110,7 @@ function generateInfoWindow(infoString, map, marker) {
 
 /** Adds an info window for the library marker. */
 function addLibraryInfoWindow(map, libraryMarker) {
+  // TODO: Investigate how to separate this HTML segment from this Javascript file. (Have tried to convert a html file into a string here while still having bugs.)
   const libraryInfoString = '<div id="content">\
       <div id="siteNotice"></div>\
       <h1 id="firstHeading" class="firstHeading">My Favorite Library</h1>\
