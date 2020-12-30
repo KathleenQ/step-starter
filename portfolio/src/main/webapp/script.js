@@ -95,4 +95,30 @@ function addMarkers(myMap) {
     title: 'Favorite Library',
     icon: iconBase + 'pink-stars.png',
   });
+  addLibraryInfoWindow(myMap, libraryMarker);
+}
+
+/** Generates an info window for a specific marker. */
+function generateInfoWindow(infoString, map, marker) {
+  const infoWindow = new google.maps.InfoWindow({
+    content: infoString,
+  });
+  marker.addListener('click', () => {
+    infoWindow.open(map, marker);
+  });
+}
+
+/** Adds an info window for the library marker. */
+function addLibraryInfoWindow(map, libraryMarker) {
+  // TODO: Investigate how to separate this HTML segment from this Javascript file. (Have tried to convert a html file into a string here while still having bugs.)
+  const libraryInfoString = '<div id="content">\
+      <div id="siteNotice"></div>\
+      <h1 id="firstHeading" class="firstHeading">My Favorite Library</h1>\
+      <div id="bodyContent">\
+      <p>The <b>Chifley Library</b>, named after Joseph Benedict Chifley (Prime Minister of Australia from 1945-1949), \
+      supports the teaching, learning and research activities of staff and students in ANU CASS and CBE.</p>\
+      <p>Attribution: ANU Chifley Library, <a href="https://anulib.anu.edu.au/using-library/branches/chifley-library">\
+      https://anulib.anu.edu.au/using-library/branches/chifley-library</a></p>\
+      </div></div>';
+  generateInfoWindow(libraryInfoString, map, libraryMarker);
 }
