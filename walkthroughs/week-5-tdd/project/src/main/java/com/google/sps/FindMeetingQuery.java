@@ -28,8 +28,8 @@ public final class FindMeetingQuery {
     }
     // Get general available time ranges.
     Collection<String> attendees = request.getAttendees();
-    List<TimeRange> unavailableTime =
-        getNoOverlapTime(getAttendeesUnavailableTime(events, attendees));
+    List<TimeRange> unavailableTimeWithOverlap = getAttendeesUnavailableTime(events, attendees);
+    List<TimeRange> unavailableTime = getNoOverlapTime(unavailableTimeWithOverlap);
     List<TimeRange> availableTime = getAvailableTime(unavailableTime, request.getDuration());
     return availableTime;
   }
