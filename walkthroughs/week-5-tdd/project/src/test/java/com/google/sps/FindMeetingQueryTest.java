@@ -122,7 +122,7 @@ public final class FindMeetingQueryTest {
   }
 
   @Test
-  public void everyAttendeeIsConsideredGivenBusyOptional() {
+  public void onlyMandatoryAttendeesAreConsidered() {
     // When an optional attendee with an all-day event is added, the optional attendee is ignored, 
     // the time slots that fit just the mandatory attendees are returned.
     //
