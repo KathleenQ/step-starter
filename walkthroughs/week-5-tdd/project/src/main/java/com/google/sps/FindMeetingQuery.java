@@ -51,6 +51,9 @@ public final class FindMeetingQuery {
 
   /** Return a collection of time ranges in the time order without any overlap among each other. */
   private List<TimeRange> getNoOverlapTime(List<TimeRange> unavailableTime) {
+    // "noOverlapTime" is guaranteed to be sorted and merged without overlap in this function,
+    // and it will keep being updated by "localNoOverlapTime" when a new time is added
+    // from the initial unsorted "unavailableTime" list (with some overlaps).
     List<TimeRange> noOverlapTime = new ArrayList<>();
     for (TimeRange newTime : unavailableTime) {
       if (noOverlapTime.isEmpty()) {
