@@ -95,6 +95,9 @@ public final class FindMeetingQuery {
   }
 
   /** Get available time for meeting, given the unavailable time ranges and the meeting duration. */
+  // TODO: Instead of sorting and merging time slots (i.e. eliminating overlaps) at the same time in
+  // this function, I can sort first and then separately eliminate overlaps for the sorted time
+  // range. The time complexity can be thus reduced.
   private List<TimeRange> getAvailableTime(List<TimeRange> unavailableTime, long duration) {
     List<TimeRange> availableTime = new ArrayList<>();
     int start = TimeRange.START_OF_DAY;
