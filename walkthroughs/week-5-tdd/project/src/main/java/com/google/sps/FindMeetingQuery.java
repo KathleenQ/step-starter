@@ -26,12 +26,29 @@ public final class FindMeetingQuery {
     if (request.getDuration() > TimeRange.WHOLE_DAY.duration()) {
       return Arrays.asList();
     }
-    // Get general available time ranges.
-    Collection<String> attendees = request.getAttendees();
-    List<TimeRange> unavailableTimeWithOverlap = getAttendeesUnavailableTime(events, attendees);
+
+    long meetingDuration = request.getDuration();
+    Collection<String> mandatoryAttendees = request.getAttendees();
+    Collection<String> optionalAttendees = request.getOptionalAttendees();
+    List<String> allAttendees = new ArrayList<>();
+    allAttendees.addAll(mandatoryAttendees);
+    allAttendees.addAll(optionalAttendees);
+    // If there are time slots that both mandatory and optional attendees are available, return
+    // those time; otherwise, return time that fit just the mandatory attendees.
+    List<TimeRange> unavailableTimeWithOverlap = getAttendeesUnavailableTime(events, allAttendees);
     List<TimeRange> unavailableTime = getNoOverlapTime(unavailableTimeWithOverlap);
-    List<TimeRange> availableTime = getAvailableTime(unavailableTime, request.getDuration());
-    return availableTime;
+    List<TimeRange> availableTime = getAvailableTime(unavailableTime, meetingDuration);
+    if (!availableTime.isEmpty()) {
+      return availableTime;
+    } else {
+      List<TimeRange> mandatoryUnavailableTimeWithOverlap =
+          getAttendeesUnavailableTime(events, mandatoryAttendees);
+      List<TimeRange> mandatoryUnavailableTime =
+          getNoOverlapTime(mandatoryUnavailableTimeWithOverlap);
+      List<TimeRange> mandatoryAvailableTime =
+          getAvailableTime(mandatoryUnavailableTime, meetingDuration);
+      return mandatoryAvailableTime;
+    }
   }
 
   /** Get a collection of all attendees' unavailable time ranges (due to other events). */
