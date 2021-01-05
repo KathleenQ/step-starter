@@ -134,6 +134,6 @@ public final class FindMeetingQuery {
 
   /** Check if a time range is not smaller than a given duration. */
   private boolean checkEnoughSpace(TimeRange time, long duration) {
-    return time.contains(TimeRange.fromStartDuration(time.start(), (int) duration));ls
+    return time.contains(TimeRange.fromStartDuration(time.start(), (int) duration));
   }
 }
