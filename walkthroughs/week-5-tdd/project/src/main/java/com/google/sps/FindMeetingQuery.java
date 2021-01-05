@@ -35,63 +35,55 @@ public final class FindMeetingQuery {
     allAttendees.addAll(optionalAttendees);
     // If there are time slots that both mandatory and optional attendees are available, return
     // those time; otherwise, return time that fit just the mandatory attendees.
-    List<TimeRange> unavailableTimeWithOverlap = getAttendeesUnavailableTime(events, allAttendees);
-    List<TimeRange> unavailableTime = getNoOverlapTime(unavailableTimeWithOverlap);
-    List<TimeRange> availableTime = getAvailableTime(unavailableTime, meetingDuration);
-    if (!availableTime.isEmpty()) {
-      return availableTime;
+    List<TimeRange> availableTimes = getAvailableTimes(getNoOverlapTimes(getAttendeesUnavailableTimes(events, allAttendees)), meetingDuration);
+    if (!availableTimes.isEmpty()) {
+      return availableTimes;
     } else {
-      List<TimeRange> mandatoryUnavailableTimeWithOverlap =
-          getAttendeesUnavailableTime(events, mandatoryAttendees);
-      List<TimeRange> mandatoryUnavailableTime =
-          getNoOverlapTime(mandatoryUnavailableTimeWithOverlap);
-      List<TimeRange> mandatoryAvailableTime =
-          getAvailableTime(mandatoryUnavailableTime, meetingDuration);
-      return mandatoryAvailableTime;
+      return getAvailableTimes(getNoOverlapTimes(getAttendeesUnavailableTimes(events, mandatoryAttendees)), meetingDuration);
     }
   }
 
   /** Get a collection of all attendees' unavailable time ranges (due to other events). */
-  private List<TimeRange> getAttendeesUnavailableTime(
+  private List<TimeRange> getAttendeesUnavailableTimes(
       Collection<Event> events, Collection<String> meetingAttendees) {
-    List<TimeRange> unavailableTime = new ArrayList<>();
+    List<TimeRange> unavailableTimes = new ArrayList<>();
     for (Event event : events) {
       Collection<String> eventAttendees = event.getAttendees();
       // If any attendee in the meeting joins that event as well, the time range of the event is
-      // added to the unavailableTime collection.
+      // added to the unavailableTimes collection.
       if (!Collections.disjoint(meetingAttendees, eventAttendees)) {
-        unavailableTime.add(event.getWhen());
+        unavailableTimes.add(event.getWhen());
       }
     }
-    return unavailableTime;
+    return unavailableTimes;
   }
 
   /** Return a collection of time ranges in the time order without any overlap among each other. */
-  private List<TimeRange> getNoOverlapTime(List<TimeRange> unavailableTime) {
-    // "noOverlapTime" is guaranteed to be sorted and merged without overlap in this function,
-    // and it will keep being updated by "localNoOverlapTime" when a new time is added
-    // from the initial unsorted "unavailableTime" list (with some overlaps).
-    List<TimeRange> noOverlapTime = new ArrayList<>();
-    for (TimeRange newTime : unavailableTime) {
-      if (noOverlapTime.isEmpty()) {
-        noOverlapTime.add(newTime);
+  private List<TimeRange> getNoOverlapTimes(List<TimeRange> unavailableTimes) {
+    // "noOverlapTimes" is guaranteed to be sorted and merged without overlap in this function,
+    // and it will keep being updated by "localNoOverlapTimes" when a new time is added
+    // from the initial unsorted "unavailableTimes" list (with some overlaps).
+    List<TimeRange> noOverlapTimes = new ArrayList<>();
+    for (TimeRange newTime : unavailableTimes) {
+      if (noOverlapTimes.isEmpty()) {
+        noOverlapTimes.add(newTime);
         continue;
       }
       // Compare and combine the new time with any existing time range in collection in order.
-      List<TimeRange> localNoOverlapTime = new ArrayList<>();
-      for (int i = 0; i < noOverlapTime.size(); i++) {
-        TimeRange existingTime = noOverlapTime.get(i);
+      List<TimeRange> localNoOverlapTimes = new ArrayList<>();
+      for (int i = 0; i < noOverlapTimes.size(); i++) {
+        TimeRange existingTime = noOverlapTimes.get(i);
         // Case 1. Existing time is earlier than new time
         if (existingTime.end() <= newTime.start()) {
-          localNoOverlapTime.add(existingTime);
+          localNoOverlapTimes.add(existingTime);
         } else if (existingTime.start() >= newTime.end()) {
           // Case 2. New time is earlier than existing time
-          localNoOverlapTime.add(newTime);
-          localNoOverlapTime.addAll(noOverlapTime.subList(i, noOverlapTime.size()));
+          localNoOverlapTimes.add(newTime);
+          localNoOverlapTimes.addAll(noOverlapTimes.subList(i, noOverlapTimes.size()));
           break;
         } else if (existingTime.contains(newTime)) {
           // Case 3. Existing time contains new time
-          localNoOverlapTime.addAll(noOverlapTime.subList(i, noOverlapTime.size()));
+          localNoOverlapTimes.addAll(noOverlapTimes.subList(i, noOverlapTimes.size()));
           break;
         } else if (newTime.contains(existingTime)) {
           // Case 4. New time contains existing time
@@ -102,30 +94,30 @@ public final class FindMeetingQuery {
         }
       }
       // Check whether newTime has never been included because it is the last one.
-      if (localNoOverlapTime.isEmpty()) {
-        localNoOverlapTime.add(newTime);
+      if (localNoOverlapTimes.isEmpty()) {
+        localNoOverlapTimes.add(newTime);
       } else {
-        if (localNoOverlapTime.get(localNoOverlapTime.size() - 1).end() < newTime.end()) {
-          localNoOverlapTime.add(newTime);
+        if (localNoOverlapTimes.get(localNoOverlapTimes.size() - 1).end() < newTime.end()) {
+          localNoOverlapTimes.add(newTime);
         }
       }
-      noOverlapTime = localNoOverlapTime;
+      noOverlapTimes = localNoOverlapTimes;
     }
-    return noOverlapTime;
+    return noOverlapTimes;
   }
 
-  /** Get available time for meeting, given the unavailable time ranges and the meeting duration. */
+  /** Get available times for meeting, given the unavailable time ranges and the meeting duration. */
   // TODO: Instead of sorting and merging time slots (i.e. eliminating overlaps) at the same time in
   // this function, I can sort first and then separately eliminate overlaps for the sorted time
-  // range. The time complexity can be thus reduced.
-  private List<TimeRange> getAvailableTime(List<TimeRange> unavailableTime, long duration) {
-    List<TimeRange> availableTime = new ArrayList<>();
+  // ranges. The time complexity can be thus reduced.
+  private List<TimeRange> getAvailableTimes(List<TimeRange> unavailableTimes, long duration) {
+    List<TimeRange> availableTimes = new ArrayList<>();
     int start = TimeRange.START_OF_DAY;
-    for (TimeRange eventTime : unavailableTime) {
+    for (TimeRange eventTime : unavailableTimes) {
       if (start < eventTime.start()) {
         TimeRange meetingTime = TimeRange.fromStartEnd(start, eventTime.start(), false);
         if (checkEnoughSpace(meetingTime, duration)) {
-          availableTime.add(meetingTime);
+          availableTimes.add(meetingTime);
         }
       }
       start = eventTime.end();
@@ -134,14 +126,14 @@ public final class FindMeetingQuery {
     if (start < TimeRange.END_OF_DAY + 1) {
       TimeRange meetingTime = TimeRange.fromStartEnd(start, TimeRange.END_OF_DAY + 1, false);
       if (checkEnoughSpace(meetingTime, duration)) {
-        availableTime.add(meetingTime);
+        availableTimes.add(meetingTime);
       }
     }
-    return availableTime;
+    return availableTimes;
   }
 
   /** Check if a time range is not smaller than a given duration. */
   private boolean checkEnoughSpace(TimeRange time, long duration) {
-    return time.contains(TimeRange.fromStartDuration(time.start(), (int) duration));
+    return time.contains(TimeRange.fromStartDuration(time.start(), (int) duration));ls
   }
 }
